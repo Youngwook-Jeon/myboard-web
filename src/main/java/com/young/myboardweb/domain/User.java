@@ -24,7 +24,7 @@ public class User {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private Part part;
+    private Role role;
 
     @Enumerated(EnumType.STRING)
     private Enabled enabled;

@@ -3,8 +3,8 @@ package com.young.myboardweb.repository;
 import com.young.myboardweb.MyboardWebApplicationTests;
 import com.young.myboardweb.domain.Board;
 import com.young.myboardweb.domain.Enabled;
+import com.young.myboardweb.domain.Role;
 import com.young.myboardweb.domain.User;
-import com.young.myboardweb.domain.Part;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,7 +24,7 @@ public class BoardRepositoryTest extends MyboardWebApplicationTests {
 //        user1.setId("ela87");
 //        user1.setPassword("abc123123");
 //        user1.setName("전영욱");
-//        user1.setPart(Part.ADMIN);
+//        user1.setRole(Role.ROLE_ADMIN);
 //        user1.setEnabled(Enabled.YES);
 //        userRepository.save(user1);
 //
@@ -32,7 +32,7 @@ public class BoardRepositoryTest extends MyboardWebApplicationTests {
 //        user2.setId("mayer");
 //        user2.setPassword("abc123123");
 //        user2.setName("존");
-//        user2.setPart(Part.NORMAL);
+//        user2.setRole(Role.ROLE_NORMAL);
 //        user2.setEnabled(Enabled.YES);
 //        userRepository.save(user2);
 //
@@ -55,19 +55,19 @@ public class BoardRepositoryTest extends MyboardWebApplicationTests {
 //        }
 //    }
 
-//    @Test
-//    public void getBoardTest() {
-//        Board board = boardRepository.findById(1L)
-//                .get();
-//
-//        System.out.println(board.getId() + "번 게시글 정보: ");
-//        System.out.println("제목: " + board.getTitle());
-//        System.out.println("작성자: " + board.getUser().getName());
-//        System.out.println("본문: " + board.getContent());
-//        System.out.println("작성일: " + board.getCreatedAt());
-//        System.out.println("조회수: " + board.getCnt());
-//
-//    }
+    @Test
+    public void getBoardTest() {
+        Board board = boardRepository.findById(1L)
+                .get();
+
+        System.out.println(board.getId() + "번 게시글 정보: ");
+        System.out.println("제목: " + board.getTitle());
+        System.out.println("작성자: " + board.getUser().getName());
+        System.out.println("본문: " + board.getContent());
+        System.out.println("작성일: " + board.getCreatedAt());
+        System.out.println("조회수: " + board.getCnt());
+
+    }
 
     @Test
     public void getBoardListTest() {
