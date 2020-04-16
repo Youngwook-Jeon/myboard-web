@@ -1,9 +1,11 @@
 package com.young.myboardweb.controller;
 
 import com.young.myboardweb.domain.Board;
+import com.young.myboardweb.security.SecurityUser;
 import com.young.myboardweb.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +38,8 @@ public class BoardController {
     }
 
     @PostMapping("/createBoard")
-    public String createBoard(Board board) {
+    public String createBoard(Board board, @AuthenticationPrincipal SecurityUser principal) {
+        board.setUser(principal.getUser());
         boardService.createBoard(board);
         return "redirect:getBoardList";
     }

@@ -1,12 +1,16 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>게시판 글 목록</title>
 </head>
 <body th:align="center">
 <h1>게시글 목록</h1>
-<a th:href="@{/system/logout}">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a th:href="@{/admin/adminPage}">관리자 모드</a>
+<div sec:authorize="isAuthenticated()">
+    <b><div sec:authentication="principal.user.name"></div></b>
+    <a th:href="@{/system/logout}">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a th:href="@{/admin/adminPage}">관리자 모드</a>
+</div>
 <hr><table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
     <tr>
         <th bgcolor="lightskyblue" width="50">번호</th>

@@ -7,6 +7,7 @@ import com.young.myboardweb.domain.Role;
 import com.young.myboardweb.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +18,9 @@ public class BoardRepositoryTest extends MyboardWebApplicationTests {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
 //    @Test
 //    public void insertTest() {
@@ -77,5 +81,18 @@ public class BoardRepositoryTest extends MyboardWebApplicationTests {
         for (Board board: user.getBoardList()) {
             System.out.println(board.toString());
         }
+    }
+
+    @Test
+    public void testPasswordEncoder() {
+        User user = new User();
+        user.setId("batman");
+        user.setPassword(encoder.encode("waynecompany123"));
+        user.setName("Bruce");
+        user.setRole(Role.ROLE_NORMAL);
+        user.setEnabled(Enabled.YES);
+        userRepository.save(user);
+
+        System.out.println(user.getPassword());
     }
 }

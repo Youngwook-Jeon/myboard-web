@@ -8,7 +8,7 @@ public class SecurityUser extends User {
     private com.young.myboardweb.domain.User user;
 
     public SecurityUser(com.young.myboardweb.domain.User user){
-        super(user.getId(), "{noop}" + user.getPassword(),
+        super(user.getId(), user.getPassword(),
                 AuthorityUtils.createAuthorityList(user.getRole().toString()));
         this.user = user;
     }
