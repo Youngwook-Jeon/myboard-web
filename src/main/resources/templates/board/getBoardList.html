@@ -11,6 +11,22 @@
     <a th:href="@{/system/logout}">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
     <a th:href="@{/admin/adminPage}">관리자 모드</a>
 </div>
+
+<form th:action="@{/board/getBoardList}" method="post">
+    <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
+        <tr>
+            <td align="right">
+                <select name="searchCondition">
+                    <option value="TITLE">제목</option>
+                    <option value="CONTENT">내용</option>
+                </select>
+                <input name="searchKeyword" type="text"/>
+                <input type="submit" value="검색"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
 <hr><table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
     <tr>
         <th bgcolor="lightskyblue" width="50">번호</th>

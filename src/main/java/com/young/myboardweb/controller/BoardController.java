@@ -1,6 +1,7 @@
 package com.young.myboardweb.controller;
 
 import com.young.myboardweb.domain.Board;
+import com.young.myboardweb.domain.Search;
 import com.young.myboardweb.security.SecurityUser;
 import com.young.myboardweb.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,10 @@ public class BoardController {
     private BoardService boardService;
 
     @RequestMapping("/getBoardList")
-    public String getBoardList(Model model, Board board) {
-        Page<Board> boardPage = boardService.getBoardList(board);
+    public String getBoardList(Model model, Search search) {
+        if (search.getSearchCondition() == null) search.setSearchCondition("TITLE");
+        if (search.getSearchKeyword() == null) search.setSearchKeyword("");
+        Page<Board> boardPage = boardService.getBoardList(search);
         model.addAttribute("boardPage", boardPage);
         return "board/getBoardList";
     }

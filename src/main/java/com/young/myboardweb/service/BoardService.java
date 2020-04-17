@@ -1,6 +1,7 @@
 package com.young.myboardweb.service;
 
 import com.young.myboardweb.domain.Board;
+import com.young.myboardweb.domain.Search;
 import org.springframework.data.domain.Page;
 
 public interface BoardService {
@@ -10,5 +11,5 @@ public interface BoardService {
     void updateBoard(Board board);
     void deleteBoard(Board board);
 
-    Page<Board> getBoardList(Board board);
+    Page<Board> getBoardList(Search search);
 }

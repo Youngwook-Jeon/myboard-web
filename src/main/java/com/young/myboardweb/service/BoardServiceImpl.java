@@ -1,6 +1,9 @@
 package com.young.myboardweb.service;
 
+import com.querydsl.core.BooleanBuilder;
 import com.young.myboardweb.domain.Board;
+import com.young.myboardweb.domain.QBoard;
+import com.young.myboardweb.domain.Search;
 import com.young.myboardweb.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,8 +43,16 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page<Board> getBoardList(Board board) {
+    public Page<Board> getBoardList(Search search) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QBoard qBoard = QBoard.board;
+        if (search.getSearchCondition().equals("TITLE")) {
+            booleanBuilder.and(qBoard.title.like("%" + search.getSearchKeyword() + "%"));
+        } else if(search.getSearchCondition().equals("CONTENT")) {
+            booleanBuilder.and(qBoard.content.like("%" + search.getSearchKeyword() + "%"));
+        }
+
         Pageable pageable = PageRequest.of(0, 15, Sort.Direction.DESC, "id");
-        return boardRepository.getBoardList(pageable);
+        return boardRepository.findAll(booleanBuilder, pageable);
     }
 }
