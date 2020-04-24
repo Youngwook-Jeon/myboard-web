@@ -3,6 +3,7 @@ package com.young.myboardweb.service;
 import com.young.myboardweb.domain.Board;
 import com.young.myboardweb.domain.Search;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
 
@@ -11,5 +12,5 @@ public interface BoardService {
     void updateBoard(Board board);
     void deleteBoard(Board board);
 
-    Page<Board> getBoardList(Search search);
+    Page<Board> getBoardList(Pageable pageable, Search search);
 }

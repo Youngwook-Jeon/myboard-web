@@ -58,6 +58,25 @@ public class BoardRepositoryTest extends MyboardWebApplicationTests {
 //            boardRepository.save(board);
 //        }
 //    }
+    @Test
+    public void insertManyBoardsTest() {
+        User user = new User();
+        user.setId("tester");
+        user.setPassword("123123");
+        user.setName("영욱전");
+        user.setRole(Role.ROLE_ADMIN);
+        user.setEnabled(Enabled.YES);
+        userRepository.save(user);
+
+        for (int i = 0; i < 200; i++) {
+            Board board = new Board();
+            board.setCreatedAt(LocalDateTime.now());
+            board.setUser(user);
+            board.setTitle(user.getName() + " " + i + "번째 테스트");
+            board.setContent(user.getName() + " " + i + "번째 테스트 본문글입니다.");
+            boardRepository.save(board);
+       }
+    }
 
     @Test
     public void getBoardTest() {

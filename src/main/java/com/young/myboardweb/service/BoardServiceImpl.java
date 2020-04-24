@@ -43,16 +43,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page<Board> getBoardList(Search search) {
+    public Page<Board> getBoardList(Pageable pageable, Search search) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QBoard qBoard = QBoard.board;
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         if (search.getSearchCondition().equals("TITLE")) {
             booleanBuilder.and(qBoard.title.like("%" + search.getSearchKeyword() + "%"));
         } else if(search.getSearchCondition().equals("CONTENT")) {
             booleanBuilder.and(qBoard.content.like("%" + search.getSearchKeyword() + "%"));
         }
 
-        Pageable pageable = PageRequest.of(0, 15, Sort.Direction.DESC, "id");
+        pageable = PageRequest.of(page, 15, Sort.Direction.DESC, "id");
         return boardRepository.findAll(booleanBuilder, pageable);
     }
 }

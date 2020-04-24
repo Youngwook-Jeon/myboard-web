@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판 글 목록</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
-<body th:align="center">
+<body class="container" th:align="center">
 <h1>게시글 목록</h1>
 <div sec:authorize="isAuthenticated()">
     <b><div sec:authentication="principal.user.name"></div></b>
@@ -44,6 +45,36 @@
         <td th:text="${board.cnt}" th:align="center">
     </tr>
 </table>
+
+<nav style="text-align: center">
+    <ul class="pagination"
+        th:with="start=${T(Math).floor(boardPage.number/10)*10 + 1},
+            last=(${start + 9 < boardPage.totalPages ? start + 9 : boardPage.totalPages})">
+        <li>
+            <a th:href="@{/board/getBoardList(page=1)}" aria-label="First">
+                <span aria-hidden="true">First</span>
+            </a>
+        </li>
+        <li th:class="${boardPage.first} ? 'disabled'">
+            <a th:href="@{/board/getBoardList(page=${boardPage.number})}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+        </li>
+        <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == boardPage.number + 1} ? 'active'">
+            <a th:text="${page}" th:href="@{/board/getBoardList(page=${page})}"></a>
+        </li>
+        <li th:class="${boardPage.last} ? 'disabled'">
+            <a th:href="@{/board/getBoardList(page=${boardPage.number + 2})}" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/board/getBoardList(page=${boardPage.totalPages})}" aria-label="Last">
+                <span aria-hidden="true">Last</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 <br>
 <a th:href="@{/board/createBoard}">글 작성하기</a>
 </body>

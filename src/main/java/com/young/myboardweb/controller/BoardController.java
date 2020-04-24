@@ -6,6 +6,8 @@ import com.young.myboardweb.security.SecurityUser;
 import com.young.myboardweb.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +23,10 @@ public class BoardController {
     private BoardService boardService;
 
     @RequestMapping("/getBoardList")
-    public String getBoardList(Model model, Search search) {
+    public String getBoardList(Model model, @PageableDefault Pageable pageable, Search search) {
         if (search.getSearchCondition() == null) search.setSearchCondition("TITLE");
         if (search.getSearchKeyword() == null) search.setSearchKeyword("");
-        Page<Board> boardPage = boardService.getBoardList(search);
+        Page<Board> boardPage = boardService.getBoardList(pageable, search);
         model.addAttribute("boardPage", boardPage);
         return "board/getBoardList";
     }
